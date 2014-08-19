@@ -1,5 +1,5 @@
 {
-	"name": "bit3/assetic-autoprefixer-php",
+	"name": "bit3/assetic-autoprefixer",
 	"description": "autoprefixer-php filter for kriswallsmith/assetic",
 	"keywords": [
 		"assets",
