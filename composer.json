@@ -26,7 +26,6 @@
 	},
 	"require": {
 		"php": ">=5.3.1",
-		"vladkens/autoprefixer": "dev-master",
 		"kriswallsmith/assetic": "1.*"
 	},
 	"autoload": {
