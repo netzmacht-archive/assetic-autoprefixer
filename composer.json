@@ -1,0 +1,37 @@
+{
+	"name": "bit3/assetic-autoprefixer-php",
+	"description": "autoprefixer-php filter for kriswallsmith/assetic",
+	"keywords": [
+		"assets",
+		"css",
+		"vendor-prefix"
+	],
+	"homepage": "http://bit3.de",
+	"version": "1.0.0",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tristan Lins",
+			"email": "tristan.lins@bit3.de",
+			"homepage": "http://bit3.de",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "info@bit3.de",
+		"issues": "https://github.com/bit3/assetic-autoprefixer-php/issues",
+		"wiki": "https://github.com/bit3/assetic-autoprefixer-php/wiki",
+		"source": "https://github.com/bit3/assetic-autoprefixer-php"
+	},
+	"require": {
+		"php": ">=5.3.1",
+		"vladkens/autoprefixer": "dev-master",
+		"kriswallsmith/assetic": "1.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Bit3\\Assetic\\Filter\\Autoprefixer\\": "src/"
+		}
+	}
+}
