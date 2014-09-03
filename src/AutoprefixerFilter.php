@@ -22,13 +22,16 @@ class AutoprefixerFilter extends BaseNodeFilter
 
     protected $autoprefixerBin;
 
+    protected $nodeBin;
+
     private $cascade = true;
 
     private $safe = false;
 
-    public function __construct($autoprefixerBin = '/usr/bin/autoprefixer')
+    public function __construct($autoprefixerBin = '/usr/bin/autoprefixer', $nodeBin = null)
     {
         $this->autoprefixerBin = $autoprefixerBin;
+        $this->nodeBin         = $nodeBin;
     }
 
     /**
@@ -47,6 +50,25 @@ class AutoprefixerFilter extends BaseNodeFilter
     public function setAutoprefixerBin($autoprefixerBin)
     {
         $this->autoprefixerBin = (string) $autoprefixerBin;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNodeBin()
+    {
+        return $this->nodeBin;
+    }
+
+    /**
+     * @param string $nodeBin
+     *
+     * @return static
+     */
+    public function setNodeBin($nodeBin)
+    {
+        $this->nodeBin = empty($nodeBin) ? null : (string) $nodeBin;
         return $this;
     }
 
@@ -93,8 +115,11 @@ class AutoprefixerFilter extends BaseNodeFilter
         $input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
         file_put_contents($input, $asset->getContent());
 
-        $pb = $this->createProcessBuilder();
-        $pb->add($this->autoprefixerBin);
+        $pb = $this->createProcessBuilder([$this->autoprefixerBin]);
+
+        if ($this->nodeBin) {
+            $pb->setPrefix($this->nodeBin);
+        }
 
         // disable cascade
         if (!$this->isCascade()) {
