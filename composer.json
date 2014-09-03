@@ -1,42 +1,47 @@
 {
-	"name": "bit3/assetic-autoprefixer",
-	"description": "autoprefixer-php filter for kriswallsmith/assetic",
-	"keywords": [
-		"assets",
-		"css",
-		"vendor-prefix"
-	],
-	"homepage": "http://bit3.de",
-	"version": "1.0.0",
-	"type": "library",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Tristan Lins",
-			"email": "tristan.lins@bit3.de",
-			"homepage": "http://bit3.de",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"email": "info@bit3.de",
-		"issues": "https://github.com/bit3/assetic-autoprefixer-php/issues",
-		"wiki": "https://github.com/bit3/assetic-autoprefixer-php/wiki",
-		"source": "https://github.com/bit3/assetic-autoprefixer-php"
-	},
-	"require": {
-		"php": ">=5.3.1",
-		"kriswallsmith/assetic": "1.*"
-	},
-	"autoload": {
-		"psr-4": {
-			"Bit3\\Assetic\\Filter\\Autoprefixer\\": "src/"
-		}
-	},
-	"extra":{
-		"branch-alias": {
-			"dev-master": "1.0.x-dev",
-			"dev-develop": "1.1.x-dev"
-		}
-	}
+    "name": "bit3/assetic-autoprefixer",
+    "description": "autoprefixer-php filter for kriswallsmith/assetic",
+    "keywords": [
+        "assets",
+        "css",
+        "vendor-prefix"
+    ],
+    "homepage": "http://bit3.de",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tristan Lins",
+            "email": "tristan.lins@bit3.de",
+            "homepage": "http://bit3.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "info@bit3.de",
+        "issues": "https://github.com/bit3/assetic-autoprefixer-php/issues",
+        "wiki": "https://github.com/bit3/assetic-autoprefixer-php/wiki",
+        "source": "https://github.com/bit3/assetic-autoprefixer-php"
+    },
+    "require": {
+        "php": ">=5.3.1",
+        "kriswallsmith/assetic": "1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7",
+        "squizlabs/php_codesniffer": "~1.0",
+        "phpmd/phpmd": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bit3\\Assetic\\Filter\\Autoprefixer\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-develop": "1.1.x-dev"
+        }
+    }
 }

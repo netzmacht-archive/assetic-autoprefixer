@@ -13,124 +13,191 @@ namespace Bit3\Assetic\Filter\Autoprefixer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
-use Assetic\Filter\BaseProcessFilter;
+use Assetic\Filter\BaseNodeFilter;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
-class AutoprefixerFilter extends BaseProcessFilter
+class AutoprefixerFilter extends BaseNodeFilter
 {
 
-	protected $autoprefixerBin;
+    /**
+     * The path to the autoprefixer binary.
+     *
+     * @var string
+     */
+    protected $autoprefixerBin;
 
-	private $cascade = true;
+    /**
+     * The path to the node.js binary.
+     *
+     * @var string|null
+     */
+    protected $nodeBin;
 
-	private $safe = false;
+    /**
+     * Create nice visual cascade of prefixes.
+     *
+     * @var bool
+     */
+    protected $cascade = true;
 
-	public function __construct($autoprefixerBin = '/usr/bin/autoprefixer')
-	{
-		$this->autoprefixerBin = $autoprefixerBin;
-	}
+    /**
+     * Try to fix CSS syntax errors.
+     *
+     * @var bool
+     */
+    protected $safe = false;
 
-	/**
-	 * @return string
-	 */
-	public function getAutoprefixerBin()
-	{
-		return $this->autoprefixerBin;
-	}
+    public function __construct($autoprefixerBin = '/usr/bin/autoprefixer', $nodeBin = null)
+    {
+        $this->autoprefixerBin = $autoprefixerBin;
+        $this->nodeBin         = $nodeBin;
+    }
 
-	/**
-	 * @param string $autoprefixerBin
-	 *
-	 * @return static
-	 */
-	public function setAutoprefixerBin($autoprefixerBin)
-	{
-		$this->autoprefixerBin = (string) $autoprefixerBin;
-		return $this;
-	}
+    /**
+     * Get the path to the autoprefixer binary.
+     *
+     * @return string
+     */
+    public function getAutoprefixerBin()
+    {
+        return $this->autoprefixerBin;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isCascade()
-	{
-		return $this->cascade;
-	}
+    /**
+     * Set the path to the autoprefixer binary.
+     *
+     * @param string $autoprefixerBin
+     *
+     * @return static
+     */
+    public function setAutoprefixerBin($autoprefixerBin)
+    {
+        $this->autoprefixerBin = (string) $autoprefixerBin;
+        return $this;
+    }
 
-	/**
-	 * @param boolean $cascade
-	 *
-	 * @return static
-	 */
-	public function setCascade($cascade)
-	{
-		$this->cascade = (bool) $cascade;
-		return $this;
-	}
+    /**
+     * Get the path to the node.js binary.
+     *
+     * @return string
+     */
+    public function getNodeBin()
+    {
+        return $this->nodeBin;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isSafe()
-	{
-		return $this->safe;
-	}
+    /**
+     * Set the path to the node.js binary.
+     *
+     * @param string $nodeBin
+     *
+     * @return static
+     */
+    public function setNodeBin($nodeBin)
+    {
+        $this->nodeBin = empty($nodeBin) ? null : (string) $nodeBin;
+        return $this;
+    }
 
-	/**
-	 * @param boolean $safe
-	 *
-	 * @return static
-	 */
-	public function setSafe($safe)
-	{
-		$this->safe = (bool) $safe;
-		return $this;
-	}
+    /**
+     * Determine if create nice visual cascade of prefixes is enabled.
+     *
+     * @return boolean
+     */
+    public function isCascade()
+    {
+        return $this->cascade;
+    }
 
-	public function filterLoad(AssetInterface $asset)
-	{
-		$input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
-		file_put_contents($input, $asset->getContent());
+    /**
+     * Set create nice visual cascade of prefixes.
+     *
+     * @param boolean $cascade
+     *
+     * @return static
+     */
+    public function setCascade($cascade)
+    {
+        $this->cascade = (bool) $cascade;
+        return $this;
+    }
 
-		$pb = $this->createProcessBuilder();
-		$pb->add($this->autoprefixerBin);
+    /**
+     * Determine if try to fix CSS syntax errors is enabled.
+     *
+     * @return boolean
+     */
+    public function isSafe()
+    {
+        return $this->safe;
+    }
 
-		// disable cascade
-		if (!$this->isCascade()) {
-			$pb->add('--no-cascade');
-		}
-		// enable safe mode
-		if ($this->isSafe()) {
-			$pb->add('--safe');
-		}
-		// output to stdout
-		$pb->add('-o')->add('-');
-		// input file
-		$pb->add($input);
+    /**
+     * Set try to fix CSS syntax errors.
+     *
+     * @param boolean $safe
+     *
+     * @return static
+     */
+    public function setSafe($safe)
+    {
+        $this->safe = (bool) $safe;
+        return $this;
+    }
 
-		try {
-			$process = $pb->getProcess();
-			$process->run();
-			unlink($input);
+    /**
+     * {@inheritdoc}
+     */
+    public function filterLoad(AssetInterface $asset)
+    {
+        $input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
+        file_put_contents($input, $asset->getContent());
 
-			if (!$process->isSuccessful()) {
-				throw FilterException::fromProcess($process)->setInput($asset->getContent());
-			}
-		}
-		catch (ProcessFailedException $exception) {
-			unlink($input);
-			throw $exception;
-		}
-		catch (ProcessTimedOutException $exception) {
-			unlink($input);
-			throw $exception;
-		}
+        $processBuilder = $this->createProcessBuilder([$this->autoprefixerBin]);
 
-		$asset->setContent($process->getOutput());
-	}
+        if ($this->nodeBin) {
+            $processBuilder->setPrefix($this->nodeBin);
+        }
 
-	public function filterDump(AssetInterface $asset)
-	{
-	}
+        // disable cascade
+        if (!$this->isCascade()) {
+            $processBuilder->add('--no-cascade');
+        }
+        // enable safe mode
+        if ($this->isSafe()) {
+            $processBuilder->add('--safe');
+        }
+        // output to stdout
+        $processBuilder->add('-o')->add('-');
+        // input file
+        $processBuilder->add($input);
+
+        try {
+            $process = $processBuilder->getProcess();
+            $process->run();
+            unlink($input);
+
+            if (!$process->isSuccessful()) {
+                throw FilterException::fromProcess($process)->setInput($asset->getContent());
+            }
+        } catch (ProcessFailedException $exception) {
+            unlink($input);
+            throw $exception;
+        } catch (ProcessTimedOutException $exception) {
+            unlink($input);
+            throw $exception;
+        }
+
+        $asset->setContent($process->getOutput());
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
+    public function filterDump(AssetInterface $asset)
+    {
+    }
 }
