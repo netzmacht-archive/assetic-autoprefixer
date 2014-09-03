@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="Example" default="test">
+    <target name="phpunit">
+        <exec dir="${basedir}" executable="vendor/bin/phpunit" failonerror="true"/>
+    </target>
+
+    <target name="phpcs">
+        <exec dir="${basedir}" executable="vendor/bin/phpcs" failonerror="true">
+            <arg line="--standard=PSR1,PSR2 ${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpmd">
+        <exec dir="${basedir}" executable="vendor/bin/phpmd" failonerror="true">
+            <arg line="${basedir}/src text naming,unusedcode --suffixes php"/>
+        </exec>
+    </target>
+
+    <target name="branch-alias">
+        <property name="script">
+            <![CDATA[
+$composer = json_decode(file_get_contents("composer.json"), true);
+foreach ($composer["extra"]["branch-alias"] as $branch => $alias) {
+	$simpleBranch = substr($branch, 4);
+	$simpleAlias = preg_replace("~(\.x)?-dev~", "", $alias);
+	$versionLevel = count(explode('.', $simpleAlias));
+	$tag = trim(shell_exec("git describe " . escapeshellarg($simpleBranch)));
+	$reducedTag = explode('.', $tag);
+	$reducedTag = array_slice($reducedTag, 0, $versionLevel);
+	$reducedTag = implode('.', $reducedTag);
+
+	if (version_compare($reducedTag, $simpleAlias, ">")) {
+		echo "The branch alias $branch $alias is behind the latest branch tag $tag!";
+		exit(1);
+	}
+}
+            ]]>
+        </property>
+        <exec dir="${basedir}" executable="/usr/bin/env" failonerror="true">
+            <arg value="php"/>
+            <arg value="-r"/>
+            <arg value="${script}"/>
+        </exec>
+    </target>
+
+    <!-- <target name="test" depends="phpunit,phpcs,phpmd"/> -->
+    <target name="test" depends="phpcs,phpmd,branch-alias"/>
+</project>
