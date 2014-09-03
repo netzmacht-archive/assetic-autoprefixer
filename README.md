@@ -1,5 +1,11 @@
-[Autoprefixer filter](https://github.com/ai/autoprefixer)
-=========================================================
+[![Version](http://img.shields.io/packagist/v/bit3/assetic-autoprefixer.svg?style=flat-square)](https://packagist.org/packages/bit3/assetic-autoprefixer)
+[![Stable Build Status](http://img.shields.io/travis/bit3/assetic-autoprefixer/master.svg?style=flat-square)](https://travis-ci.org/bit3/assetic-autoprefixer)
+[![Upstream Build Status](http://img.shields.io/travis/bit3/assetic-autoprefixer/develop.svg?style=flat-square)](https://travis-ci.org/bit3/assetic-autoprefixer)
+![License](http://img.shields.io/packagist/l/bit3/assetic-autoprefixer.svg?style=flat-square)
+[![Downloads](http://img.shields.io/packagist/dt/bit3/assetic-autoprefixer.svg?style=flat-square)](https://packagist.org/packages/bit3/assetic-autoprefixer)
+
+Autoprefixer filter
+===================
 
 This is a filter implementation to use the [Autoprefixer filter](https://github.com/ai/autoprefixer)
 within the [PHP assetic framework](https://github.com/kriswallsmith/assetic).
