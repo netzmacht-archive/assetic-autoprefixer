@@ -76,4 +76,4 @@ assetic:
           resource: "%kernel.root_dir%/../vendor/bit3/assetic-autoprefixer/config/autoprefixer.xml"
           # if you like, you can use apply_to here :-)
           # otherwise you use the filter in your template with filter="autoprefixer"
-``
+```
