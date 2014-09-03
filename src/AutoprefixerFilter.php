@@ -115,27 +115,27 @@ class AutoprefixerFilter extends BaseNodeFilter
         $input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
         file_put_contents($input, $asset->getContent());
 
-        $pb = $this->createProcessBuilder([$this->autoprefixerBin]);
+        $processBuilder = $this->createProcessBuilder([$this->autoprefixerBin]);
 
         if ($this->nodeBin) {
-            $pb->setPrefix($this->nodeBin);
+            $processBuilder->setPrefix($this->nodeBin);
         }
 
         // disable cascade
         if (!$this->isCascade()) {
-            $pb->add('--no-cascade');
+            $processBuilder->add('--no-cascade');
         }
         // enable safe mode
         if ($this->isSafe()) {
-            $pb->add('--safe');
+            $processBuilder->add('--safe');
         }
         // output to stdout
-        $pb->add('-o')->add('-');
+        $processBuilder->add('-o')->add('-');
         // input file
-        $pb->add($input);
+        $processBuilder->add($input);
 
         try {
-            $process = $pb->getProcess();
+            $process = $processBuilder->getProcess();
             $process->run();
             unlink($input);
 
@@ -153,6 +153,11 @@ class AutoprefixerFilter extends BaseNodeFilter
         $asset->setContent($process->getOutput());
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function filterDump(AssetInterface $asset)
     {
     }
