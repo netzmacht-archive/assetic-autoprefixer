@@ -24,9 +24,9 @@ class AutoprefixerFilter extends BaseNodeFilter
 
     protected $nodeBin;
 
-    private $cascade = true;
+    protected $cascade = true;
 
-    private $safe = false;
+    protected $safe = false;
 
     public function __construct($autoprefixerBin = '/usr/bin/autoprefixer', $nodeBin = null)
     {
