@@ -13,11 +13,11 @@ namespace Bit3\Assetic\Filter\Autoprefixer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
-use Assetic\Filter\BaseProcessFilter;
+use Assetic\Filter\BaseNodeFilter;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
-class AutoprefixerFilter extends BaseProcessFilter
+class AutoprefixerFilter extends BaseNodeFilter
 {
 
     protected $autoprefixerBin;
