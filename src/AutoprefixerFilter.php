@@ -20,12 +20,32 @@ use Symfony\Component\Process\Exception\ProcessTimedOutException;
 class AutoprefixerFilter extends BaseNodeFilter
 {
 
+    /**
+     * The path to the autoprefixer binary.
+     *
+     * @var string
+     */
     protected $autoprefixerBin;
 
+    /**
+     * The path to the node.js binary.
+     *
+     * @var string|null
+     */
     protected $nodeBin;
 
+    /**
+     * Create nice visual cascade of prefixes.
+     *
+     * @var bool
+     */
     protected $cascade = true;
 
+    /**
+     * Try to fix CSS syntax errors.
+     *
+     * @var bool
+     */
     protected $safe = false;
 
     public function __construct($autoprefixerBin = '/usr/bin/autoprefixer', $nodeBin = null)
@@ -35,6 +55,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Get the path to the autoprefixer binary.
+     *
      * @return string
      */
     public function getAutoprefixerBin()
@@ -43,6 +65,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Set the path to the autoprefixer binary.
+     *
      * @param string $autoprefixerBin
      *
      * @return static
@@ -54,6 +78,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Get the path to the node.js binary.
+     *
      * @return string
      */
     public function getNodeBin()
@@ -62,6 +88,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Set the path to the node.js binary.
+     *
      * @param string $nodeBin
      *
      * @return static
@@ -73,6 +101,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Determine if create nice visual cascade of prefixes is enabled.
+     *
      * @return boolean
      */
     public function isCascade()
@@ -81,6 +111,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Set create nice visual cascade of prefixes.
+     *
      * @param boolean $cascade
      *
      * @return static
@@ -92,6 +124,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Determine if try to fix CSS syntax errors is enabled.
+     *
      * @return boolean
      */
     public function isSafe()
@@ -100,6 +134,8 @@ class AutoprefixerFilter extends BaseNodeFilter
     }
 
     /**
+     * Set try to fix CSS syntax errors.
+     *
      * @param boolean $safe
      *
      * @return static
@@ -110,6 +146,9 @@ class AutoprefixerFilter extends BaseNodeFilter
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function filterLoad(AssetInterface $asset)
     {
         $input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
