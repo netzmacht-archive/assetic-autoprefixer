@@ -1,7 +1,7 @@
 [![Version](http://img.shields.io/packagist/v/bit3/assetic-autoprefixer.svg?style=flat-square)](https://packagist.org/packages/bit3/assetic-autoprefixer)
 [![Stable Build Status](http://img.shields.io/travis/bit3/assetic-autoprefixer/master.svg?style=flat-square)](https://travis-ci.org/bit3/assetic-autoprefixer)
 [![Upstream Build Status](http://img.shields.io/travis/bit3/assetic-autoprefixer/develop.svg?style=flat-square)](https://travis-ci.org/bit3/assetic-autoprefixer)
-![License](http://img.shields.io/packagist/l/bit3/assetic-autoprefixer.svg?style=flat-square)
+[![License](http://img.shields.io/packagist/l/bit3/assetic-autoprefixer.svg?style=flat-square)](https://github.com/bit3/assetic-autoprefixer/blob/master/LICENSE)
 [![Downloads](http://img.shields.io/packagist/dt/bit3/assetic-autoprefixer.svg?style=flat-square)](https://packagist.org/packages/bit3/assetic-autoprefixer)
 
 Autoprefixer filter
