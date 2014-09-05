@@ -25,7 +25,7 @@
         "source": "https://github.com/bit3/assetic-autoprefixer-php"
     },
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.3",
         "kriswallsmith/assetic": "1.*"
     },
     "require-dev": {

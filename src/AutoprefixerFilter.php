@@ -154,7 +154,7 @@ class AutoprefixerFilter extends BaseNodeFilter
         $input = tempnam(sys_get_temp_dir(), 'assetic_autoprefixer');
         file_put_contents($input, $asset->getContent());
 
-        $processBuilder = $this->createProcessBuilder([$this->autoprefixerBin]);
+        $processBuilder = $this->createProcessBuilder(array($this->autoprefixerBin));
 
         if ($this->nodeBin) {
             $processBuilder->setPrefix($this->nodeBin);
