@@ -7,7 +7,6 @@
         "vendor-prefix"
     ],
     "homepage": "http://bit3.de",
-    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "authors": [
