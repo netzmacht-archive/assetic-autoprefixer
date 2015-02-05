@@ -1,15 +1,21 @@
 {
-    "name": "bit3/assetic-autoprefixer",
+    "name": "netzmacht/assetic-autoprefixer",
     "description": "autoprefixer-php filter for kriswallsmith/assetic",
     "keywords": [
         "assets",
         "css",
         "vendor-prefix"
     ],
-    "homepage": "http://bit3.de",
+    "homepage": "http://netzmacht.de",
     "type": "library",
     "license": "MIT",
     "authors": [
+        {
+            "name": "David Molineus",
+            "email": "david.molineus@netzmacht.de",
+            "homepage": "http://netzmacht.de",
+            "role": "Developer"
+        },
         {
             "name": "Tristan Lins",
             "email": "tristan.lins@bit3.de",
@@ -18,10 +24,10 @@
         }
     ],
     "support": {
-        "email": "info@bit3.de",
-        "issues": "https://github.com/bit3/assetic-autoprefixer-php/issues",
-        "wiki": "https://github.com/bit3/assetic-autoprefixer-php/wiki",
-        "source": "https://github.com/bit3/assetic-autoprefixer-php"
+        "email": "info@netzmacht.de",
+        "issues": "https://github.com/netzmacht/assetic-autoprefixer-php/issues",
+        "wiki": "https://github.com/netzmacht/assetic-autoprefixer-php/wiki",
+        "source": "https://github.com/netzmacht/assetic-autoprefixer-php"
     },
     "require": {
         "php": ">=5.3",
