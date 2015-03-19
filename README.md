@@ -80,7 +80,8 @@ Then enable the filter in the `assetic` configuration chapter:
 assetic:
     filters:
         autoprefixer:
-          resource: "%kernel.root_dir%/../vendor/bit3/assetic-autoprefixer/config/autoprefixer.xml"
+          resource: "%kernel.root_dir%/../vendor/netzmacht/assetic-autoprefixer/config/autoprefixer.xml"
           # if you like, you can use apply_to here :-)
+          # e.g, apply_to: "\.css"
           # otherwise you use the filter in your template with filter="autoprefixer"
 ```
